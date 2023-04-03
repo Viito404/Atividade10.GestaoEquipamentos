@@ -9,20 +9,19 @@ namespace Atividade10.GestaoEquipamentos
 {
      internal class Program
      {
+          static ArrayList listaNomeEquipamentos = new ArrayList();
+          static ArrayList listaPrecoEquipamentos = new ArrayList();
+          static ArrayList listaSerieEquipamentos = new ArrayList();
+          static ArrayList listaDataEquipamentos = new ArrayList();
+          static ArrayList listaFabricanteEquipamentos = new ArrayList();
+
+          static ArrayList listaTituloChamados = new ArrayList();
+          static ArrayList listaDescricaoChamados = new ArrayList();
+          static ArrayList listaEquipamentoChamados = new ArrayList();
+          static ArrayList listaDataChamados = new ArrayList();
+          static ArrayList listaAberturaChamados = new ArrayList();
           static void Main(string[] args)
           {
-               ArrayList listaNomeEquipamentos = new ArrayList();
-               ArrayList listaPrecoEquipamentos = new ArrayList();
-               ArrayList listaSerieEquipamentos = new ArrayList();
-               ArrayList listaDataEquipamentos = new ArrayList();
-               ArrayList listaFabricanteEquipamentos = new ArrayList();
-
-               ArrayList listaTituloChamados = new ArrayList();
-               ArrayList listaDescricaoChamados = new ArrayList();
-               ArrayList listaEquipamentoChamados = new ArrayList();
-               ArrayList listaDataChamados = new ArrayList();
-               ArrayList listaAberturaChamados = new ArrayList();
-
                bool saidaPrograma = false;
                bool saidaEquipamento = false;
                bool saidaChamados = false;
@@ -51,11 +50,11 @@ namespace Atividade10.GestaoEquipamentos
                                         case "1":
 
                                              ImprimirMensagem("Registrando Equipamento...", "inicializando");
-                                             AdquirirNomeEquipamento(listaNomeEquipamentos, 6, "", 0);
-                                             AdquirirPrecoEquipamento(listaPrecoEquipamentos, "", 0);
-                                             AdquirirSerieEquipamento(listaSerieEquipamentos, "", 0);
-                                             AdquirirDataEquipamento(listaDataEquipamentos, "", 0);
-                                             AdquirirFabricanteEquipamento(listaFabricanteEquipamentos, "", 0);
+                                             AdquirirNomeEquipamento(6, "", 0);
+                                             AdquirirPrecoEquipamento("", 0);
+                                             AdquirirSerieEquipamento("", 0);
+                                             AdquirirDataEquipamento("", 0);
+                                             AdquirirFabricanteEquipamento("", 0);
                                              ImprimirMensagem("Equipamento Registrado com Sucesso!", " ");
 
                                              break;
@@ -63,7 +62,7 @@ namespace Atividade10.GestaoEquipamentos
                                         case "2":
 
                                              ImprimirMensagem("Mostrando Equipamentos...", "inicializando");
-                                             VisualizarEquipamentos(listaNomeEquipamentos, listaPrecoEquipamentos, listaSerieEquipamentos, listaDataEquipamentos, listaFabricanteEquipamentos);
+                                             VisualizarEquipamentos();
                                              Console.ReadLine();
 
                                              break;
@@ -71,7 +70,7 @@ namespace Atividade10.GestaoEquipamentos
                                         case "3":
 
                                              ImprimirMensagem("Editando Equipamento...", "inicializando");
-                                             VisualizarEquipamentos(listaNomeEquipamentos, listaPrecoEquipamentos, listaSerieEquipamentos, listaDataEquipamentos, listaFabricanteEquipamentos);
+                                             VisualizarEquipamentos();
                                              int numeroSerie = Convert.ToInt32(PegarValor("\n\nEntre com o número de série do equipamento:\n> "));
 
                                              if (listaSerieEquipamentos.Contains(numeroSerie))
@@ -79,13 +78,13 @@ namespace Atividade10.GestaoEquipamentos
                                                   int indexDaSerie = listaSerieEquipamentos.IndexOf(numeroSerie);
                                                   Console.WriteLine();
 
-                                                  AdquirirNomeEquipamento(listaNomeEquipamentos, 6, "novo ", indexDaSerie);
+                                                  AdquirirNomeEquipamento(6, "novo ", indexDaSerie);
 
-                                                  AdquirirPrecoEquipamento(listaPrecoEquipamentos, "novo ", indexDaSerie);
+                                                  AdquirirPrecoEquipamento("novo ", indexDaSerie);
 
-                                                  AdquirirDataEquipamento(listaDataEquipamentos, "novo ", indexDaSerie);
+                                                  AdquirirDataEquipamento("novo ", indexDaSerie);
 
-                                                  AdquirirFabricanteEquipamento(listaFabricanteEquipamentos, "novo ", indexDaSerie);
+                                                  AdquirirFabricanteEquipamento("novo ", indexDaSerie);
 
                                                   ImprimirMensagem("Equipamento Atualizado com Sucesso!", " ");
                                              }
@@ -100,14 +99,14 @@ namespace Atividade10.GestaoEquipamentos
                                         case "4":
 
                                              ImprimirMensagem("Removendo Equipamento...", "inicializando");
-                                             VisualizarEquipamentos(listaNomeEquipamentos, listaPrecoEquipamentos, listaSerieEquipamentos, listaDataEquipamentos, listaFabricanteEquipamentos);
+                                             VisualizarEquipamentos();
                                              numeroSerie = Convert.ToInt32(PegarValor("\n\nEntre com o número de série do equipamento:\n> "));
 
                                              if (listaSerieEquipamentos.Contains(numeroSerie))
                                              {
                                                   int indexDaSerie = listaSerieEquipamentos.IndexOf(numeroSerie);
                                                   Console.WriteLine();
-                                                  RemoverItensEquipamento(listaNomeEquipamentos, listaPrecoEquipamentos, listaSerieEquipamentos, listaDataEquipamentos, listaFabricanteEquipamentos, indexDaSerie);
+                                                  RemoverItensEquipamento(indexDaSerie);
                                                   ImprimirMensagem("Equipamento Removido com Sucesso!", " ");
                                              }
 
@@ -151,9 +150,9 @@ namespace Atividade10.GestaoEquipamentos
 
                                              ImprimirMensagem("Registrando Chamado...", "inicializando");
 
-                                             AdquirirTituloChamado(listaTituloChamados, "", 0);
+                                             AdquirirTituloChamado("", 0);
 
-                                             AdquirirDescricaoChamado(listaDescricaoChamados, "", 0);
+                                             AdquirirDescricaoChamado("", 0);
 
                                              int equipamentoChamado = (Convert.ToInt32(PegarValor("\nEntre com a série do equipamento para o chamado:\n> ")));
 
@@ -174,7 +173,7 @@ namespace Atividade10.GestaoEquipamentos
                                                   break;
                                              }
 
-                                             AdquirirDataChamado(listaDataChamados, listaAberturaChamados, "", 0);
+                                             AdquirirDataChamado("", 0);
 
                                              ImprimirMensagem("Chamado Registrado com Sucesso!", "");
 
@@ -182,7 +181,7 @@ namespace Atividade10.GestaoEquipamentos
 
                                         case "2":
 
-                                             VisualizarChamados(listaTituloChamados, listaEquipamentoChamados, listaDataChamados, listaAberturaChamados);
+                                             VisualizarChamados();
                                              Console.ReadLine();
 
                                              break;
@@ -190,15 +189,15 @@ namespace Atividade10.GestaoEquipamentos
                                         case "3":
                                              bool serie = false;
                                              ImprimirMensagem("Editando Chamado...", "inicializando");
-                                             VisualizarChamados(listaTituloChamados, listaEquipamentoChamados, listaDataChamados, listaAberturaChamados);
+                                             VisualizarChamados();
 
                                              int numeroLinha = Convert.ToInt32(PegarValor("\n\nEntre com o número da linha que deseja editar:\n> "));
                                              Console.WriteLine();
                                              if (numeroLinha < listaTituloChamados.Count)
                                              {
-                                                  AdquirirTituloChamado(listaTituloChamados, "novo ", numeroLinha);
+                                                  AdquirirTituloChamado("novo ", numeroLinha);
 
-                                                  AdquirirDescricaoChamado(listaDescricaoChamados, "novo ", numeroLinha);
+                                                  AdquirirDescricaoChamado("novo ", numeroLinha);
 
                                                   equipamentoChamado = (Convert.ToInt32(PegarValor("\nEntre com a série do equipamento para o novo chamado:\n> ")));
 
@@ -219,7 +218,7 @@ namespace Atividade10.GestaoEquipamentos
                                                        break;
                                                   }
 
-                                                  AdquirirDataChamado(listaDataChamados, listaAberturaChamados, "novo ", numeroLinha);
+                                                  AdquirirDataChamado("novo ", numeroLinha);
 
                                                   ImprimirMensagem("Chamado Atualizado com Sucesso!", "");
                                              }
@@ -235,13 +234,13 @@ namespace Atividade10.GestaoEquipamentos
 
                                              ImprimirMensagem("Removendo Chamado...", "inicializando");
 
-                                             VisualizarChamados(listaTituloChamados, listaEquipamentoChamados, listaDataChamados, listaAberturaChamados);
+                                             VisualizarChamados();
 
                                              numeroLinha = Convert.ToInt32(PegarValor("\n\nEntre com o número de linha do chamado:\n> "));
 
                                              if (numeroLinha < listaTituloChamados.Count)
                                              {
-                                                  RemoverItensChamado(listaTituloChamados, listaDescricaoChamados, listaEquipamentoChamados, listaDataChamados, listaAberturaChamados, numeroLinha);
+                                                  RemoverItensChamado(numeroLinha);
                                                   ImprimirMensagem("Equipamento Removido com Sucesso!", " ");
                                              }
 
@@ -283,7 +282,7 @@ namespace Atividade10.GestaoEquipamentos
                } while (saidaPrograma == false);
           }
 
-          private static void RemoverItensChamado(ArrayList listaTituloChamados, ArrayList listaDescricaoChamados, ArrayList listaEquipamentoChamados, ArrayList listaDataChamados, ArrayList listaAberturaChamados, int numeroLinha)
+          private static void RemoverItensChamado(int numeroLinha)
           {
                listaTituloChamados.RemoveAt(numeroLinha);
                listaEquipamentoChamados.RemoveAt(numeroLinha);
@@ -292,7 +291,7 @@ namespace Atividade10.GestaoEquipamentos
                listaAberturaChamados.RemoveAt(numeroLinha);
           }
 
-          private static void VisualizarChamados(ArrayList listaTituloChamados, ArrayList listaEquipamentoChamados, ArrayList listaDataChamados, ArrayList listaAberturaChamados)
+          private static void VisualizarChamados()
           {
                Console.Clear();
                Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -308,7 +307,7 @@ namespace Atividade10.GestaoEquipamentos
                }
           }
 
-          private static void AdquirirDataChamado(ArrayList listaDataChamados, ArrayList listaAberturaChamados, string chamadoNovo, int index)
+          private static void AdquirirDataChamado(string chamadoNovo, int index)
           {
                DateTime dataChamado = (Convert.ToDateTime(PegarValor($"\nEntre com a data de abertura do {chamadoNovo}chamado (/ ou -):\n> ")));
                var dataFormatada = String.Format("{0:dd/MM/yyyy}", dataChamado);
@@ -329,7 +328,7 @@ namespace Atividade10.GestaoEquipamentos
 
           }
 
-          private static void AdquirirDescricaoChamado(ArrayList listaDescricaoChamados, string chamadoNovo, int index)
+          private static void AdquirirDescricaoChamado(string chamadoNovo, int index)
           {
                string descricaoChamado = (PegarValor($"\nEntre com a descrição do {chamadoNovo}chamado:\n> "));
 
@@ -343,7 +342,7 @@ namespace Atividade10.GestaoEquipamentos
                }
           }
 
-          private static void AdquirirTituloChamado(ArrayList listaTituloChamados, string chamadoNovo, int index)
+          private static void AdquirirTituloChamado(string chamadoNovo, int index)
           {
                string tituloChamado = (PegarValor($"Entre com o título do {chamadoNovo}chamado:\n> "));
                if (chamadoNovo == "novo ")
@@ -358,7 +357,7 @@ namespace Atividade10.GestaoEquipamentos
 
           }
 
-          private static void RemoverItensEquipamento(ArrayList listaNomeEquipamentos, ArrayList listaPrecoEquipamentos, ArrayList listaSerieEquipamentos, ArrayList listaDataEquipamentos, ArrayList listaFabricanteEquipamentos, int indexDaSerie)
+          private static void RemoverItensEquipamento(int indexDaSerie)
           {
 
                listaNomeEquipamentos.RemoveAt(indexDaSerie);
@@ -369,7 +368,7 @@ namespace Atividade10.GestaoEquipamentos
 
           }
 
-          private static void VisualizarEquipamentos(ArrayList listaNomeEquipamentos, ArrayList listaPrecoEquipamentos, ArrayList listaSerieEquipamentos, ArrayList listaDataEquipamentos, ArrayList listaFabricanteEquipamentos)
+          private static void VisualizarEquipamentos()
           {
                Console.ForegroundColor = ConsoleColor.DarkCyan;
                Console.Write("-------------------------------------------------------------------------------------------");
@@ -384,7 +383,7 @@ namespace Atividade10.GestaoEquipamentos
                }
           }
 
-          private static void AdquirirFabricanteEquipamento(ArrayList listaFabricanteEquipamentos, string equipamentoNovo, int index)
+          private static void AdquirirFabricanteEquipamento(string equipamentoNovo, int index)
           {
                string fabricanteEquipamento = (PegarValor($"\nEntre com o nome da fabricante do {equipamentoNovo}equipamento:\n> "));
 
@@ -399,7 +398,7 @@ namespace Atividade10.GestaoEquipamentos
 
           }
 
-          private static void AdquirirDataEquipamento(ArrayList listaDataEquipamentos, string equipamentoNovo, int index)
+          private static void AdquirirDataEquipamento(string equipamentoNovo, int index)
           {
                DateTime dataEquipamento = Convert.ToDateTime(PegarValor($"\nEntre com a data de fabricação do {equipamentoNovo}equipamento (separada por / ou -):\n> "));
                var dataFormatada = String.Format("{0:dd/MM/yyyy}", dataEquipamento);
@@ -415,7 +414,7 @@ namespace Atividade10.GestaoEquipamentos
 
           }
 
-          private static void AdquirirSerieEquipamento(ArrayList listaSerieEquipamentos, string equipamentoNovo, int index)
+          private static void AdquirirSerieEquipamento(string equipamentoNovo, int index)
           {
                int serieEquipamento = (Convert.ToInt32(PegarValor($"\nEntre com o número de série do {equipamentoNovo}equipamento:\n> ")));
 
@@ -435,7 +434,7 @@ namespace Atividade10.GestaoEquipamentos
                }
           }
 
-          private static void AdquirirPrecoEquipamento(ArrayList listaPrecoEquipamentos, string equipamentoNovo, int index)
+          private static void AdquirirPrecoEquipamento(string equipamentoNovo, int index)
           {
                decimal valorEquipamento = (Convert.ToDecimal(PegarValor($"\nEntre com o preço de aquisição do {equipamentoNovo}equipamento:\n> ")));
                valorEquipamento = Math.Round(valorEquipamento, 2);
@@ -450,7 +449,7 @@ namespace Atividade10.GestaoEquipamentos
                }
           }
 
-          private static void AdquirirNomeEquipamento(ArrayList listaNomeEquipamentos, int tamanho, string equipamentoNovo, int index)
+          private static void AdquirirNomeEquipamento(int tamanho, string equipamentoNovo, int index)
           {
                string nomeEquipamento;
                nomeEquipamento = (PegarValor($"Entre com o nome do {equipamentoNovo}equipamento (mínimo 6 caracteres):\n> "));
